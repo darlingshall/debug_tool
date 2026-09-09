@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import sys
 import platform
 from datetime import datetime
@@ -107,7 +108,9 @@ def collect(config):
         f.write(f"采集时间: {datetime.now()}\n")
         f.write(f"采集工具: DeviceCollector v1.0\n")
         f.write("=" * 50 + "\n")
-
+        # 定义需要替换的目标词和新词（也可以放到 config.json 中统一配置）
+        target_word = "Demo"
+        replacement_word = "admin"  # 你可以改成任何想要的词，比如 "REDACTED" 或其他
         for i, item in enumerate(commands, 1):
             title = item["title"]
             cmd = item["cmd"]
@@ -122,6 +125,11 @@ def collect(config):
                 _, stdout, stderr = client.exec_command(cmd, timeout=15)
                 output = stdout.read().decode("utf-8", errors="ignore")
                 error = stderr.read().decode("utf-8", errors="ignore")
+
+                # 使用正则表达式进行整词替换，避免误伤包含 root 的其他英文单词（如 bootstrap）
+                output = re.sub(rf'\b{target_word}\b', replacement_word, output)
+                if error and error.strip():
+                    error = re.sub(rf'\b{target_word}\b', replacement_word, error)
 
                 f.write(output)
                 if error and error.strip():

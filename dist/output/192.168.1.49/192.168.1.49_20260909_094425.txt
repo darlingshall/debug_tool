@@ -1,0 +1,71 @@
+==================================================
+远程设备诊断报告
+设备IP地址: 192.168.1.49
+采集时间: 2026-09-09 09:44:26.077482
+采集工具: DeviceCollector v1.0
+==================================================
+
+[1] 查看网络相关进程
+命令: ps aux | grep -E "connman|dhcp|net" | grep -v grep
+----------------------------------------
+admin       512  0.0  0.7   7216  3676 ?        Ss   Sep02   0:04 /usr/sbin/connmand
+
+[2] 查看路由表
+命令: /sbin/route
+----------------------------------------
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.1.254   0.0.0.0         UG    0      0        0 eth0
+192.168.1.0     *               255.255.255.0   U     0      0        0 eth0
+192.168.1.254   *               255.255.255.255 UH    0      0        0 eth0
+
+[3] 查看系统运行时间
+命令: uptime
+----------------------------------------
+ 09:40:59 up 6 days, 18:01,  1 user,  load average: 0.00, 0.03, 0.05
+
+[4] 查看磁盘空间
+命令: df
+----------------------------------------
+Filesystem     1K-blocks   Used Available Use% Mounted on
+/dev/admin        7350760 769264   6185056  12% /
+devtmpfs          187628      4    187624   1% /dev
+tmpfs                 40      0        40   0% /mnt/.psplash
+tmpfs             253428    168    253260   1% /run
+tmpfs             253428    336    253092   1% /var/volatile
+/dev/mmcblk1p1     32248   6899     25350  22% /run/media/mmcblk1p1
+
+[5] 查看日志目录文件列表
+命令: ls -alh /var/log/
+----------------------------------------
+total 332K
+drwxr-xr-x 3 admin admin  540 Sep  8 23:59 .
+drwxrwxrwt 4 admin admin   80 Jan  1  1970 ..
+-rw-r--r-- 1 admin admin 8.6K Sep  9 09:40 auth.log
+-rw-r--r-- 1 admin admin    0 Jan  1  1970 boot
+-rw-r--r-- 1 admin admin  26K Sep  9 09:39 daemon.log
+-rw-r--r-- 1 admin admin  705 Jan  1  2022 debug
+-rw-r--r-- 1 admin admin  17K Jan  1  1970 dmesg
+-rw-r--r-- 1 admin admin    0 Sep  3 23:59 frpc.20260905-000000.log
+-rw-r--r-- 1 admin admin    0 Sep  4 23:59 frpc.20260906-000000.log
+-rw-r--r-- 1 admin admin    0 Sep  5 23:59 frpc.20260907-000000.log
+-rw-r--r-- 1 admin admin 3.8K Sep  7 18:25 frpc.20260908-000000.log
+-rw-r--r-- 1 admin admin    0 Sep  7 23:59 frpc.20260909-000000.log
+-rw-r--r-- 1 admin admin  606 Sep  9 06:35 frpc.log
+-rw-r--r-- 1 admin admin  28K Sep  7 13:43 kern.log
+-rw-r--r-- 1 admin admin    0 Jan  1  2022 lpr.log
+-rw-r--r-- 1 admin admin    0 Jan  1  2022 mail.err
+-rw-r--r-- 1 admin admin    0 Jan  1  2022 mail.info
+-rw-r--r-- 1 admin admin    0 Jan  1  2022 mail.log
+-rw-r--r-- 1 admin admin    0 Jan  1  2022 mail.warn
+-rw-r--r-- 1 admin admin  27K Sep  7 13:43 messages
+-rw-r--r-- 1 admin admin    0 Jan  1  2022 news.crit
+-rw-r--r-- 1 admin admin    0 Jan  1  2022 news.err
+-rw-r--r-- 1 admin admin    0 Jan  1  2022 news.notice
+drwxr-xr-x 2 admin admin   80 Jan  1  2022 nginx
+-rw-r--r-- 1 admin admin 195K Sep  9 09:40 syslog
+-rw-r--r-- 1 admin admin    0 Jan  1  2022 user.log
+-rw-rw-r-- 1 admin admin 4.5K Sep  9 02:23 wtmp
+
+==================================================
+采集完成
